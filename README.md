@@ -41,11 +41,11 @@ test running:
 sudo -H pip install uwsgi	<br/>
 sudo mkdir -p /etc/uwsgi/sites <br/>
 sudo nano /etc/uwsgi/sites/firstsite.ini <br/>
+	
 	[uwsgi]
 	project = firstsite
 	uid = $USER
 	base = /home/%(uid)
-
 	chdir = %(base)/%(project)
 	home = %(base)/Env/%(project)
 	module = %(project).wsgi:application
@@ -61,9 +61,9 @@ sudo nano /etc/uwsgi/sites/firstsite.ini <br/>
  Note! replace $USER with username  <br/><br/>
 
 sudo nano /etc/systemd/system/uwsgi.service <br/>
+	
 	[Unit]
 	Description=uWSGI Emperor service
-
 	[Service]
 	ExecStartPre=/bin/bash -c 'mkdir -p /run/uwsgi; chown $USER:www-data /run/uwsgi'
 	ExecStart=/usr/local/bin/uwsgi --emperor /etc/uwsgi/sites
@@ -74,6 +74,8 @@ sudo nano /etc/systemd/system/uwsgi.service <br/>
 
 	[Install]
 	WantedBy=multi-user.target
+	
+ <br/>
  Note! replace $USER with username <br/>
 
 start uwsgi service <br/>
@@ -84,6 +86,7 @@ start uwsgi service <br/>
 sudo apt update <br/>
 sudo apt install nginx <br/>
 sudo nano /etc/nginx/sites-available/firstsite <br/>
+	
 	server {
 	    listen 80;
 	    server_name localhost;
@@ -100,7 +103,7 @@ sudo nano /etc/nginx/sites-available/firstsite <br/>
 	}
 sudo ln -s /etc/nginx/sites-available/firstsite /etc/nginx/sites-enabled <br/>
 check configuration with <br/>
-	sudo nginx -t
+	sudo nginx -t <br/>
 restart nginx <br/>
 	sudo systemctl restart nginx <br/>
 nginx firewall allow  <br/>
@@ -114,9 +117,12 @@ delete the default page on /etc/nginx/sites-enable/default	<br/>
 
 type url for first django site using your ip address, in my case it's  <br/>
 	http://35.224.171.124/ <br/>
-
+to access admin page use <br/>
+http://35.224.171.124/admin <br/>
+username: admin <br/>
+password: Pfix0insa <br/>
 ## install docker on machine
---------------------------
+
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - <br/>
 
 sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"<br/>
