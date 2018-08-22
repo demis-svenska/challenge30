@@ -17,7 +17,7 @@ echo "export WORKON_HOME=~/Env" >> ~/.bashrc <br/>
 echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc <br/>
 source ~/.bashrc
 
-## install django
+## install django and create first site
 ----------------------
 mkvirtualenv firstsite  <br/>
 pip install django <br/>
