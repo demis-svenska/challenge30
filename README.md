@@ -1,39 +1,46 @@
-steps
-----------------install python,django,uwsgi,nginx on ubuntu 16.04 lTS---------------------
 
----------------install python, pip----------
-sudo apt-get update
-sudo apt-get install python-pip
-sudo -H pip install --upgrade pip
 
----------------install virtualenv----------------------------
-sudo -H pip install virtualenv virtualenvwrapper
-echo "export WORKON_HOME=~/Env" >> ~/.bashrc
-echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc
+# PART 1.1
+# install python,django,celery,uwsgi,nginx on ubuntu 16.04 lTS
+
+
+## install python, pip
+-------------------------
+sudo apt-get update <br/>
+sudo apt-get install python-pip <br/>
+sudo -H pip install --upgrade pip <br/>
+
+## install virtualenv
+-------------------------------------------
+sudo -H pip install virtualenv virtualenvwrapper <br/>
+echo "export WORKON_HOME=~/Env" >> ~/.bashrc <br/>
+echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc <br/>
 source ~/.bashrc
 
-----------install django------------
-mkvirtualenv firstsite
-pip install django
-pip install celery
-cd ~
-django-admin.py startproject firstsite
-cd ~/firstsite
-~/firstsite/manage.py migrate
-~/firstsite/manage.py createsuperuser
-	username: admin
-	password:Pfix0insa
-nano ~/firstsite/firstsite/settings.py
-	ALLOWED_HOSTS = ['your-ip-address', 'localhost'] and 
-	add STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-~/firstsite/manage.py collectstatic
+## install django
+----------------------
+mkvirtualenv firstsite  <br/>
+pip install django <br/>
+pip install celery  <br/>
+cd ~ <br/>
+django-admin.py startproject firstsite <br/>
+cd ~/firstsite <br/>
+~/firstsite/manage.py migrate <br/>
+~/firstsite/manage.py createsuperuser <br/>
+	username: admin <br/>
+	password:Pfix0insa <br/>
+nano ~/firstsite/firstsite/settings.py <br/>
+	ALLOWED_HOSTS = ['your-ip-address', 'localhost'] and <br/>
+	add STATIC_ROOT = os.path.join(BASE_DIR, 'static/') <br/>
+~/firstsite/manage.py collectstatic <br/>
 test running:
 	~/firstsite/manage.py runserver 0.0.0.0:8080
 
-----------------install uwsgi-------------------------
-sudo -H pip install uwsgi	
-sudo mkdir -p /etc/uwsgi/sites
-sudo nano /etc/uwsgi/sites/firstsite.ini
+## install uwsgi
+-----------------------------------------
+sudo -H pip install uwsgi	<br/>
+sudo mkdir -p /etc/uwsgi/sites <br/>
+sudo nano /etc/uwsgi/sites/firstsite.ini <br/>
 	[uwsgi]
 	project = firstsite
 	uid = $USER
@@ -51,9 +58,9 @@ sudo nano /etc/uwsgi/sites/firstsite.ini
 	chmod-socket = 660
 	vacuum = true
 
- Note! replace $USER with username
+ Note! replace $USER with username  <br/><br/>
 
-sudo nano /etc/systemd/system/uwsgi.service
+sudo nano /etc/systemd/system/uwsgi.service <br/>
 	[Unit]
 	Description=uWSGI Emperor service
 
@@ -67,16 +74,16 @@ sudo nano /etc/systemd/system/uwsgi.service
 
 	[Install]
 	WantedBy=multi-user.target
- Note! replace $USER with username
+ Note! replace $USER with username <br/>
 
-start uwsgi service 
-	sudo service uwsgi start
+start uwsgi service <br/>
+	sudo service uwsgi start <br/>
 
-
-----------install nginx server-----------
-sudo apt update
-sudo apt install nginx
-sudo nano /etc/nginx/sites-available/firstsite
+## install nginx server
+---------------------
+sudo apt update <br/>
+sudo apt install nginx <br/>
+sudo nano /etc/nginx/sites-available/firstsite <br/>
 	server {
 	    listen 80;
 	    server_name localhost;
@@ -91,50 +98,53 @@ sudo nano /etc/nginx/sites-available/firstsite
 		uwsgi_pass      unix:/run/uwsgi/firstsite.sock;
 	    }
 	}
-sudo ln -s /etc/nginx/sites-available/firstsite /etc/nginx/sites-enabled
-check configuration with
+sudo ln -s /etc/nginx/sites-available/firstsite /etc/nginx/sites-enabled <br/>
+check configuration with <br/>
 	sudo nginx -t
-restart nginx
-	sudo systemctl restart nginx
-nginx firewall allow 
-	sudo ufw allow 'Nginx Full'
-to start automatically at boot by typing:
-	sudo systemctl enable nginx
-	sudo systemctl enable uwsgi
+restart nginx <br/>
+	sudo systemctl restart nginx <br/>
+nginx firewall allow  <br/>
+	sudo ufw allow 'Nginx Full' <br/>
+to start automatically at boot by typing: <br/>
+	sudo systemctl enable nginx <br/>
+	sudo systemctl enable uwsgi <br/>
 
-delete the default page on /etc/nginx/sites-enable/default		
-	sudo rm /etc/nginx/sites-enabled/default
+delete the default page on /etc/nginx/sites-enable/default	<br/>	
+	sudo rm /etc/nginx/sites-enabled/default <br/>
 
-type url for first django site using your ip address, in my case it's 
-	http://35.224.171.124/
+type url for first django site using your ip address, in my case it's  <br/>
+	http://35.224.171.124/ <br/>
 
------------install docker on machine---------------
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+## install docker on machine
+--------------------------
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - <br/>
 
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"<br/>
 
-sudo apt update
+sudo apt update <br/>
 
-sudo apt install -y docker-ce
+sudo apt install -y docker-ce <br/>
 
-sudo usermod -aG docker ${user}
-	replace ${user} with your username
-logout and login to affect the above cmd
+sudo usermod -aG docker ${user} <br/>
+	replace ${user} with your username <br/>
+logout and login to affect the above cmd <br/>
 
------------install rabbitmq using docker------------
-docker run -d --hostname ${hostname} --name my-rabit -p 8080:15672 rabbitmq
-	replace ${hostname} with your hostname
-docker exec -it my-rabit /bin/bash
-   to enable plugins type
-	rabbitmq-plugins enable rabbitmq_management
-   then type exit
+## install rabbitmq using docker
 
-now rabbitmq is running and working good u can test with the ff url:
-	http://35.224.171.124:8080/
-	username: guest
-	password:guest
+docker run -d --hostname ${hostname} --name my-rabit -p 8080:15672 rabbitmq <br/>
+	replace ${hostname} with your hostname <br/>
+docker exec -it my-rabit /bin/bash <br/>
+   to enable plugins type <br/>
+	rabbitmq-plugins enable rabbitmq_management <br/>
+   then type exit <br/>
 
------------install mysql on server-----------------
-sudo apt-get update
-sudo apt-get install mysql-server
-mysql_secure_installation
+now rabbitmq is running and working good u can test with the ff url: <br/>
+	http://35.224.171.124:8080/ <br/>
+	username: guest <br/>
+	password:guest <br/>
+
+### install mysql on server
+
+sudo apt-get update <br/>
+sudo apt-get install mysql-server <br/>
+sudo systemctl enable mysql <br/>
