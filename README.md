@@ -1,7 +1,7 @@
 
 
 # PART 1.1
-# install python,django,celery,uwsgi,nginx on ubuntu 16.04 lTS
+# install python,django,celery,uwsgi,nginx on ubuntu 16.04 LTS
 
 
 ## install python, pip
