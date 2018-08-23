@@ -168,6 +168,19 @@ sudo systemctl enable mysql <br/>
  python manage.py migrate <br/>
  python manage.py runserver 0.0.0.0:8090 <br/>
  Then visit http://35.224.171.124:8090/index/. <br/>
+ 
+ 
+ # PART 1.3 Running two apps on same server and using two apps on same broker
+ 
+ ## Running 2 apps on same server
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ## Using 2 apps on same server
 
 
 
