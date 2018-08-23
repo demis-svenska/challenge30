@@ -249,6 +249,39 @@ U can now see the list of vhosts
 
 # PART 2 Scale
 
+## Database 
+I recommend using ‘Amazon Route 53 Weighted record sets’ to distribute requests across the read replicas.
+
+	Create/Find DNS Endpoint for replicas
+	Create a Route 53 hosted zone 
+	Create a Record Set
+## Application server
+### option1 
+Nginx server works as reverse proxy as well as balancer. <br/>
+and recommend that at least one more application sever to be added so that the whole system continues functioning incases of failure in the application servers. <br/>
+### option 2
+if possible use Amazon Elastic Container Service for Kubernetes (Amazon EKS), makes it easy to deploy, manage, and scale containerized applications using Kubernetes on AWS. <br/>
+
+
+## Async queue
+use performance tunning best practice
+### tunning Rabbitmq
+use RabbitMQ Best Practice for High Performance
+source: https://www.cloudamqp.com/blog/2018-01-08-part2-rabbitmq-best-practice-for-high-performance.html
+
+	Make sure your queues stay short
+	Set a queue max-length if needed
+	Remove the policy for lazy queues
+	Use transit messages
+	Use multiple queues and consumers
+	Split your queues over different cores
+		RabbitMQ sharding 
+	Disable manual acks and publish confirms
+	Disable plugins you are not using
+
+and observe the effect
+
+I need more time to investigate the issues. but it's better to .....
 
 	
 
