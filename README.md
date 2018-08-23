@@ -174,14 +174,32 @@ sudo systemctl enable mysql <br/>
  
  ## Running 2 apps on same server
  
+ ### using VirtualEnv and VirtualEnvWrapper
+  
+  install virtualenv, which can create Python virtual environments, and virtualenvwrapper, which adds some usability improvements to the virtualenv work flow.
+  
+	sudo -H pip install virtualenv virtualenvwrapper
+	echo "export WORKON_HOME=~/Env" >> ~/.bashrc	
+	echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc	
+	source ~/.bashrc	 
+ to create virtual environment use mkvirtualenv cmd
  
- 
- 
- 
- 
- 
- ## Using 2 apps on same server
+ 	mkvirtualenv secondsite
+This will create a virtual environment, install Python and pip within it, and activate the environment.<br/>
+i have already created first site on PART 1.1 <br/> our prompt will change to indicate that you are now operating within your new virtual environment. It will look something like this: (secondsite)user@hostname:~$  <br/>
 
+to move out of the virtual environment use:
+
+	deactivate cmd
+to reactivate the virtual environment use:
+	
+	workon secondsite
+
+ 
+ 
+ ## Using 2 apps on same broker
+ 
+ ### using rabbitmq virtual host
 
 
 
