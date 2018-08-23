@@ -154,3 +154,34 @@ now rabbitmq is running and working good u can test with the ff url: <br/>
 sudo apt-get update <br/>
 sudo apt-get install mysql-server <br/>
 sudo systemctl enable mysql <br/>
+
+# PART 1.2 Create a simple task in django that will be run be run by celery
+
+
+ git clone https://github.com/demis-svenska/Django-Celery-Example.git <br/>
+ cd Django-Celery-Example <br/>
+ sudo pip install django <br/>
+ sudo pip install celery <br/>
+ sudo pip install numpy <br/>
+ sudo pip install scipy <br/>
+ celery -A celery_try worker -l info <br/>
+ python manage.py migrate <br/>
+ python manage.py runserver 0.0.0.0:8090 <br/>
+ Then visit http://35.224.171.124:8090/index/. <br/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
