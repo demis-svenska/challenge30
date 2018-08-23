@@ -14,30 +14,30 @@
 ## install virtualenv
 -------------------------------------------
 
-	sudo -H pip install virtualenv virtualenvwrapper <br/>
-	echo "export WORKON_HOME=~/Env" >> ~/.bashrc <br/>
-	echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc <br/>
+	sudo -H pip install virtualenv virtualenvwrapper 
+	echo "export WORKON_HOME=~/Env" >> ~/.bashrc 
+	echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.bashrc 
 	source ~/.bashrc
 
 ## install django and create first site
 ----------------------
 
-	mkvirtualenv firstsite  <br/>
-	pip install django <br/>
-	pip install celery  <br/>
-	cd ~ <br/>
-	django-admin.py startproject firstsite <br/>
-	cd ~/firstsite <br/>
-	~/firstsite/manage.py migrate <br/>
-	~/firstsite/manage.py createsuperuser <br/>
-		username: admin <br/>
-		password:Pfix0insa <br/>
-nano ~/firstsite/firstsite/settings.py <br/>
+	mkvirtualenv firstsite  
+	pip install django 
+	pip install celery  
+	cd ~ 
+	django-admin.py startproject firstsite 
+	cd ~/firstsite 
+	~/firstsite/manage.py migrate 
+	~/firstsite/manage.py createsuperuser 
+		username: admin 
+		password:Pfix0insa 
+nano ~/firstsite/firstsite/settings.py 
 
-	ALLOWED_HOSTS = ['your-ip-address', 'localhost'] and <br/>
-	add STATIC_ROOT = os.path.join(BASE_DIR, 'static/') <br/>
+	ALLOWED_HOSTS = ['your-ip-address', 'localhost'] and 
+	add STATIC_ROOT = os.path.join(BASE_DIR, 'static/') 
 	
-~/firstsite/manage.py collectstatic <br/>
+~/firstsite/manage.py collectstatic 
 
 test running:
 	
@@ -46,9 +46,9 @@ test running:
 ## install uwsgi
 -----------------------------------------
 
-	sudo -H pip install uwsgi	<br/>
-	sudo mkdir -p /etc/uwsgi/sites <br/>
-	sudo nano /etc/uwsgi/sites/firstsite.ini <br/>
+	sudo -H pip install uwsgi	
+	sudo mkdir -p /etc/uwsgi/sites 
+	sudo nano /etc/uwsgi/sites/firstsite.ini 
 
 		[uwsgi]
 		project = firstsite
@@ -66,9 +66,9 @@ test running:
 		chmod-socket = 660
 		vacuum = true
 
- Note! replace $USER with username  <br/><br/>
+ Note! replace $USER with username  
 
-	sudo nano /etc/systemd/system/uwsgi.service <br/>
+	sudo nano /etc/systemd/system/uwsgi.service 
 	
 		[Unit]
 		Description=uWSGI Emperor service
@@ -83,8 +83,8 @@ test running:
 		[Install]
 		WantedBy=multi-user.target
 	
- <br/>
- Note! replace $USER with username <br/>
+
+ Note! replace $USER with username 
 
 	start uwsgi service <br/>
 	sudo service uwsgi start <br/>
@@ -111,33 +111,33 @@ test running:
 		    }
 		}
 
-	sudo ln -s /etc/nginx/sites-available/firstsite /etc/nginx/sites-enabled <br/>
+	sudo ln -s /etc/nginx/sites-available/firstsite /etc/nginx/sites-enabled 
 check configuration with <br/>
 	
-	sudo nginx -t <br/>
+	sudo nginx -t 
 restart nginx <br/>
 	
-	sudo systemctl restart nginx <br/>
+	sudo systemctl restart nginx 
 nginx firewall allow  <br/>
 	
-	sudo ufw allow 'Nginx Full' <br/>
+	sudo ufw allow 'Nginx Full' 
 to start automatically at boot by typing: <br/>
 	
-	sudo systemctl enable nginx <br/>
-	sudo systemctl enable uwsgi <br/>
+	sudo systemctl enable nginx 
+	sudo systemctl enable uwsgi 
 
 delete the default page on /etc/nginx/sites-enable/default	<br/>	
 	
-	sudo rm /etc/nginx/sites-enabled/default <br/>
+	sudo rm /etc/nginx/sites-enabled/default 
 
 type url for first django site using your ip address, in my case it's  <br/>
 	
-	http://35.224.171.124/ <br/>
+	http://35.224.171.124/ 
 to access admin page use <br/>
 
-	http://35.224.171.124/admin <br/>
-	username: admin <br/>
-	password: Pfix0insa <br/>
+	http://35.224.171.124/admin 
+	username: admin 
+	password: Pfix0insa 
 	
 ## install docker on machine
 
@@ -154,41 +154,49 @@ logout and login to affect the above cmd <br/>
 
 ## install rabbitmq using docker
 
-	docker run -d --hostname ${hostname} --name my-rabit -p 8080:15672 rabbitmq <br/>
+	docker run -d --hostname ${hostname} --name my-rabit -p 8080:15672 rabbitmq 
 replace ${hostname} with your hostname <br/>
 	
-	docker exec -it my-rabit /bin/bash <br/>
+	docker exec -it my-rabit /bin/bash 
 to enable plugins type <br/>
 	
-	rabbitmq-plugins enable rabbitmq_management <br/>
+	rabbitmq-plugins enable rabbitmq_management 
 then type exit <br/>
 
 now rabbitmq is running and working good u can test with the ff url: <br/>
 	
-	http://35.224.171.124:8080/ <br/>
-	username: guest <br/>
-	password:guest <br/>
+	http://35.224.171.124:8080/ 
+	username: guest 
+	password:guest 
 
 ### install mysql on server
 
-	sudo apt-get update <br/>
-	sudo apt-get install mysql-server <br/>
-	sudo systemctl enable mysql <br/>
+	sudo apt-get update 
+	sudo apt-get install mysql-server 
+	sudo systemctl enable mysql 
 
 # PART 1.2 Create a simple task in django that will be run be run by celery
 
-	 git clone https://github.com/demis-svenska/Django-Celery-Example.git <br/>
-	 cd Django-Celery-Example <br/>
-	 sudo pip install django <br/>
-	 sudo pip install celery <br/>
-	 sudo pip install numpy <br/>
-	 sudo pip install scipy <br/>
-	 celery -A celery_try worker -l info <br/>
-	 python manage.py migrate <br/>
-	 python manage.py runserver 0.0.0.0:8090 <br/>
+	 git clone https://github.com/demis-svenska/Django-Celery-Example.git 
+	 cd Django-Celery-Example
+	 sudo pip install django 
+	 sudo pip install celery 
+	 sudo pip install numpy 
+	 sudo pip install scipy 
+	 celery -A celery_try worker -l info 
+	 python manage.py migrate 
+	 python manage.py runserver 0.0.0.0:8090 
 	 
  Then visit http://35.224.171.124:8090/index/. <br/>
+ I have incountered an error on this while using rabbit docker container and executing the ff code.
+ 	
+	celery -A celery_try worker -l info 
  
+ It displays the following error
+ 
+ 	[2018-08-23 11:10:03,145: ERROR/MainProcess] consumer: Cannot connect to amqp://guest:**@127.0.0.1:5672//: [Errno 111] Connection refused. Trying again in 6.00 seconds...
+
+it may take some time to fix it <br/>
  
  # PART 1.3 Running two apps on same server and using two apps on same broker
  
