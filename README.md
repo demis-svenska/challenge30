@@ -244,6 +244,11 @@ create virtual host for second site using cmd
 	rabbitmqctl add_vhost secondsite
 	
 
+# PART 2 Scale
+
+
+	
+
 
 
 
