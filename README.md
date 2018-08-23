@@ -287,7 +287,7 @@ source: https://www.cloudamqp.com/blog/2018-01-08-part2-rabbitmq-best-practice-f
 
 and observe the effect
 
-I need more time to investigate the issues. but it's better to .....
+I need more time to work on celery
 
 	
 
