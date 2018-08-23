@@ -228,6 +228,22 @@ to reactivate the virtual environment use:
  ## Using 2 apps on same broker
  
  ### using rabbitmq virtual host
+ 
+ since am using rabbitmq docker machine, i need to login to container and execute the ff cmds.
+ 
+ login to the rabbitmq docker container environment, that i created on part 1 <br/>
+ 
+ 	docker exec -it my-rabit /bin/bash
+ 
+ Create virtual host for first site using cmd
+ 
+ 	rabbitmqctl add_vhost firstsite
+
+create virtual host for second site using cmd
+
+	rabbitmqctl add_vhost secondsite
+	
+
 
 
 
