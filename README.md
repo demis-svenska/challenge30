@@ -242,7 +242,10 @@ to reactivate the virtual environment use:
 create virtual host for second site using cmd
 
 	rabbitmqctl add_vhost secondsite
-	
+
+U can now see the list of vhosts
+
+	http://35.224.171.124:8080/#/vhosts
 
 # PART 2 Scale
 
