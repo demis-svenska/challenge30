@@ -265,6 +265,15 @@ if possible use Amazon Elastic Container Service for Kubernetes (Amazon EKS), ma
 
 ## Async queue
 use performance tunning best practice
+
+### Configure to support priorities by setting the x-max-priority argument
+These are general steps to work on asynchronous tasks
+   	 Create an exchange
+   	 Create a queue
+   		 define task_queue_max_priority parameter
+    		 Add queue configuration for the four applications 
+   	 Bind the queue to the exchange.
+	 
 ### tunning Rabbitmq
 use RabbitMQ Best Practice for High Performance
 source: https://www.cloudamqp.com/blog/2018-01-08-part2-rabbitmq-best-practice-for-high-performance.html
